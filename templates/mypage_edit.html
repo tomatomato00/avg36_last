@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>{〇〇}さんのマイページ</h1>
+    <p>※変更を加えたら、必ず「変更を保存する」のボタンを押してください</p>
+
+    <div class="prof">
+        <p>サイトでの表示名</p>
+        <input type="text">
+        <p>プロフィール画像</p>
+        <input type="file" name="img" accept="image/*">
+        <p>サイト管理者ですか？</p>
+        <select name="management">
+            <option value="none">選択してください</option>
+            <option value="YES">はい</option>
+            <option value="NO">いいえ</option>
+         </select>
+        <p>ポートフォリオの登録</p>
+        <input type="file" name="portfolio" accept="pdf">
+        <p>HP制作料金設定</p>
+        <h3>￥</h3>
+        <input type="number" placeholder=""><h3>～</h3>
+        <input type="number" placeholder="目安30,000円以内">
+        <p>twitter URL</p>
+        <input type="url" >
+        <p>Instagram URL</p>
+        <input type="url" >
+        <p>Facebook URL</p>
+        <input type="url" >
+        <p>メールアドレス</p>
+        <p></p>
+        <p>電話番号</p>
+        <p></p>
+    </div>
+    <div>
+        <p>自由欄</p>
+        <p></p>
+    </div>
+    <div>
+        <p>依頼を受け付けるかどうか選択してください。<br>(非表示にした場合、データは残されたままですがサイトには掲載されません。)</p>
+        <label><input type="checkbox" name="appear" value="yes">依頼を受け付ける</label>
+        <label><input type="checkbox" name="hide" value="no">非表示にする</label>
+
+        <input type="submit" name="save" value="変更を保存する">
+    </div>
+        
+
+
+
+
+
+    
+    
+
+</body>
+</html>
