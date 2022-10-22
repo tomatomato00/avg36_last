@@ -9,12 +9,16 @@
 <body>
     <h1>マイページログイン</h1>
     <form action="/login" method = "post">
-        <p>名前</p>
-        <input type="text" name="last_name" placeholder="名字">
-        <input type="text" name="first_name" placeholder="名前">
-        <p>マイページパスワード</p>
-        <input type="password" name="password" placeholder="半角英数字">
-        <input type="submit" name="save" value="ログイン">
+        <div class="login_info">
+            <p>メールアドレス</p>
+            <input type="text" name="mail">
+            <p>マイページパスワード</p>
+            <input type="password" name="password" placeholder="半角英数字">    
+        </div>
+  
+        <div class="login_btn">
+            <input type="submit" name="save" value="ログイン">
+        </div>
     
     </form>
     

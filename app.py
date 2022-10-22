@@ -1,3 +1,4 @@
+'''
 from operator import methodcaller
 import sqlite3
 from datetime import timedelta 
@@ -140,6 +141,131 @@ def editmypage(register_id):
         return render_template("login.html")
 
     
+
+
+# 404error
+@app.errorhandler(404) # 404エラーが発生した場合の処理
+def error_404(error):
+    # return render_template('404.html')
+    return "ここは404エラー！"
+
+
+if __name__ == "__main__" :
+
+    app.run(debug=True)
+
+'''
+import sqlite3
+from datetime import timedelta 
+from flask import Flask, render_template, request, redirect, session
+
+app = Flask(__name__)
+
+app.secret_key = 'team3avg36'
+app.permanent_session_lifetime = timedelta(minutes=45)
+
+# 新規登録ページを表示
+@app.route("/form", methods = ["GET"])
+def regist_get():
+    return render_template("regist.html")
+
+
+# 登録ページで入力した情報をDBに登録し、送信する
+@app.route("/form", methods = ["POST"])
+def regist_post() :
+    # 入力フォームに入ってきた値を受け取る
+    last_name = request.form.get("last_name")
+    first_name = request.form.get("first_name")
+    mail = request.form.get("mail")
+    tel = request.form.get("tel")
+    password = request.form.get("password")
+
+    # avg36.dbを接続する
+    conn = sqlite3.connect("avg36.db")
+    # sqliteで接続したものを操作する,ということを変数に代入
+    c = conn.cursor()
+    cur = conn.cursor()
+
+    # 入力フォームが全て埋まっているかの確認
+    if last_name != "" and first_name != "" and mail != ""\
+        and tel != "" and password != "" :
+
+        cur.execute("SELECT id FROM register WHERE mail=?",(mail,))
+        user_id = cur.fetchone()
+
+        if user_id is None :
+            # ()内のSQL文を実行してね（バインド変数）
+            c.execute("insert into register values (NULL, ?, ?, ?, ?, ?)", (last_name, first_name, mail, tel, password))
+
+            # DBに追加するので、変更内容を保存する
+            conn.commit()
+
+            # color.dbとの接続を終了
+            c.close()
+            return redirect("/login")
+        else :
+            return render_template("regist_done.html")
+
+    else :
+        return render_template("regist_again.html")
+
+
+# ログインページを表示
+@app.route("/login", methods = ["GET"])
+def login_get():
+    return render_template("login.html")
+
+# ログインで情報をやり取りする
+@app.route("/login", methods = ["GET", "POST"])
+def login_post():
+    mail = request.form.get("mail")
+    password = request.form.get("password")
+
+    conn = sqlite3.connect("avg36.db")
+    c = conn.cursor()
+    # ログイン情報からregister_idを取得し、sessionに格納する
+    c.execute("select id from register where mail = ? and password = ?",\
+        (mail, password))
+    
+    user_id = c.fetchone()
+    session["id"] = user_id
+
+    # color.dbとの接続を終了
+    c.close()
+
+    if "id" in session :
+        return redirect("/editpage")
+    else:
+        return render_template("login.html")
+
+@app.route("/editpage", methods = ["GET"])
+def editpage_get():
+    if "id" in session :
+        return render_template("mypage_edit.html")
+    else:
+        return render_template("login.html")
+
+@app.route("/edit")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # 404error
