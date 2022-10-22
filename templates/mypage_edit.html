@@ -9,43 +9,61 @@
 <body>
     <h1>マイページ</h1>
     <p>※変更を加えたら、必ず「変更を保存する」のボタンを押してください</p>
-    <form action="/editpage">
+    <form action="/editpage" method="post">
         <div class="prof">
-            <p>サイトでの表示名</p>
-            <input type="text">
-            <p>プロフィール画像</p>
-            <input type="file" name="img" accept="image/*">
-            <p>サイト管理者ですか？</p>
+            <form action="/editpage" method="get">
+                <h2>こんにちは！{{lastname}} {{firstname}}さん</h2>
+            </form>
+            
+            <label>サイトでの表示名</label>
+            <input type="text" name="name">
+            <label>プロフィール画像</label>
+            <input type="file" name="img_url" accept="image/*">
+
+            <label>サイト管理者ですか？</label>
             <select name="management">
-                <option value="none">選択してください</option>
-                <option value="YES">はい</option>
-                <option value="NO">いいえ</option>
+                <option value="0">選択してください</option>
+                <option value="2">はい</option>
+                <option value="1">いいえ</option>
              </select>
-            <p>ポートフォリオの登録</p>
-            <input type="file" name="portfolio" accept="pdf">
+
+            <label>ポートフォリオの登録</label>
+            <input type="file" name="portfolio" accept="image/*,.pdf" multiple>
+            
             <p>HP制作料金設定</p>
-            <h3>￥</h3>
-            <input type="number" placeholder=""><h3>～</h3>
-            <input type="number" placeholder="目安30,000円以内">
-            <p>twitter URL</p>
-            <input type="url" >
-            <p>Instagram URL</p>
-            <input type="url" >
-            <p>Facebook URL</p>
-            <input type="url" >
-            <p>メールアドレス</p>
-            <p></p>
-            <p>電話番号</p>
-            <p></p>
+                <label>￥</label>
+                <input type="number" name="min" placeholder="">
+                <label>～</label>
+                <input type="number" name="max" placeholder="目安30,000円以内">
+            
+            <div class="sns_link">
+                <label>twitter URL</label>
+                <input type="url" name="t_url" >
+                <label>Instagram URL</label>
+                <input type="url" name="i_url">
+                <label>Facebook URL</label>
+                <input type="url" name="f_url">
+            </div>
+            
+            <div class="contact">
+                <p>メールアドレス</p>
+                <p>{{html_mail}}</p>
+                <p>電話番号</p>
+                <p>{{html_tel}}</p>
+            </div>
+                
+
         </div>
-        <div>
+        <div class="free">
             <p>自由欄</p>
             <p></p>
         </div>
-        <div>
+        <div class="appear_choice">
             <p>依頼を受け付けるかどうか選択してください。<br>(非表示にした場合、データは残されたままですがサイトには掲載されません。)</p>
-            <label><input type="checkbox" name="appear" value="yes">依頼を受け付ける</label>
-            <label><input type="checkbox" name="hide" value="no">非表示にする</label>
+            <input type="radio" name="appear" value="1" id="choice1">
+            <label for="choice1">依頼を受け付ける</label>
+            <input type="radio" name="appear" value="0" id="choice2">
+            <label for="choice2">非表示にする</label>
     
             <input type="submit" name="save" value="変更を保存する">
         </div>
