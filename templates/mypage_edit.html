@@ -12,13 +12,13 @@
     <form action="/editpage" method="post">
         <div class="prof">
             <form action="/editpage" method="get">
-                <h2>こんにちは！{{lastname}} {{firstname}}さん</h2>
+                <h2>こんにちは！{{name}}さん</h2>
             </form>
             
             <label>サイトでの表示名</label>
-            <input type="text" name="name">
+            <input type="text" name="name" value="{{name_print}}">
             <label>プロフィール画像</label>
-            <input type="file" name="img_url" accept="image/*">
+            <input type="file" name="img_url" accept="image/*" value="{{img}}">
 
             <label>サイト管理者ですか？</label>
             <select name="management">
@@ -28,35 +28,35 @@
              </select>
 
             <label>ポートフォリオの登録</label>
-            <input type="file" name="portfolio" accept="image/*,.pdf" multiple>
+            <input type="file" name="portfolio" accept="image/*,.pdf" multiple value="{{portfolio}}">
             
             <p>HP制作料金設定</p>
                 <label>￥</label>
-                <input type="number" name="min" placeholder="">
+                <input type="number" name="min" value="{{min}}">
                 <label>～</label>
-                <input type="number" name="max" placeholder="目安30,000円以内">
+                <input type="number" name="max" value="{{max}}">
             
             <div class="sns_link">
                 <label>twitter URL</label>
-                <input type="url" name="t_url" >
+                <input type="url" name="t_url" value="{{t_url}}">
                 <label>Instagram URL</label>
-                <input type="url" name="i_url">
+                <input type="url" name="i_url" value="{{i_url}}">
                 <label>Facebook URL</label>
-                <input type="url" name="f_url">
+                <input type="url" name="f_url" value="{{f_url}}">
             </div>
             
             <div class="contact">
                 <p>メールアドレス</p>
-                <p>{{html_mail}}</p>
+                <input type="text" name="mail" value="{{mail}}">
                 <p>電話番号</p>
-                <p>{{html_tel}}</p>
+                <input type="text" name="tel" value="{{tel}}">
             </div>
                 
 
         </div>
         <div class="free">
             <p>自由欄</p>
-            <p></p>
+            <input type="text" name="free" value="{{free}}">
         </div>
         <div class="appear_choice">
             <p>依頼を受け付けるかどうか選択してください。<br>(非表示にした場合、データは残されたままですがサイトには掲載されません。)</p>

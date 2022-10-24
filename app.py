@@ -140,20 +140,7 @@ def editmypage(register_id):
     else :
         return render_template("login.html")
 
-    
-
-
-# 404error
-@app.errorhandler(404) # 404エラーが発生した場合の処理
-def error_404(error):
-    # return render_template('404.html')
-    return "ここは404エラー！"
-
-
-if __name__ == "__main__" :
-
-    app.run(debug=True)
-
+ 
 '''
 import sqlite3
 from datetime import timedelta 
@@ -182,8 +169,6 @@ def regist_post() :
 
     # avg36.dbを接続する
     conn = sqlite3.connect("avg36.db")
-    # sqliteで接続したものを操作する,ということを変数に代入
-    c = conn.cursor()
     cur = conn.cursor()
 
     # 入力フォームが全て埋まっているかの確認
@@ -194,15 +179,21 @@ def regist_post() :
         user_id = cur.fetchone()
 
         if user_id is None :
-            # ()内のSQL文を実行してね（バインド変数）
-            c.execute("insert into register values (NULL, ?, ?, ?, ?, ?)", (last_name, first_name, mail, tel, password))
-
-            # DBに追加するので、変更内容を保存する
+            cur.execute("insert into register values (NULL, ?, ?, ?, ?, ?)", (last_name, first_name, mail, tel, password))
             conn.commit()
-
+            cur.close()
+            
+            conn = sqlite3.connect("avg36.db")
+            cur = conn.cursor()
+            cur.execute("SELECT id FROM register WHERE mail=?",(mail,))
+            register_id = cur.fetchone()
+            cur.execute("INSERT INTO members values (NULL, NULL, NULL, NULL, NULL, NULL,\
+                NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ?)", (register_id[0],))
+            conn.commit()
             # color.dbとの接続を終了
-            c.close()
-            return redirect("/login")
+            cur.close()
+            
+            return render_template("login.html")
         else :
             return render_template("regist_done.html")
 
@@ -226,26 +217,67 @@ def login_post():
     # ログイン情報からregister_idを取得し、sessionに格納する
     c.execute("select id from register where mail = ? and password = ?",\
         (mail, password))
-    
-    user_id = c.fetchone()
-    session["id"] = user_id
-
-    # color.dbとの接続を終了
+    register_id = c.fetchone()
     c.close()
 
-    if "id" in session :
+    if register_id is None :
+        return redirect("/form")
+
+    else :
+        session["id"] = register_id[0]
         return redirect("/editpage")
+
+@app.route("/editpage", methods = ["GET", "POST"])
+def editpage_post():
+    if "id" in session :
+        # sessionからuser_idを取得し、registerテーブルから名前を取ってきて表示する
+        user_id = session["id"]
+        conn = sqlite3.connect("avg36.db")
+        cur = conn.cursor()
+        cur.execute("SELECT first_name FROM register WHERE id=?",(user_id,))
+        firstname = cur.fetchone()
+        cur.close()
+
+        # membersから編集前の情報を取ってくる
+        conn = sqlite3.connect("avg36.db")
+        cur = conn.cursor()
+        cur.execute("SELECT name, img, manager, portfolio, price_min, price_max, twitter,\
+            insta, facebook, mail, tel, free, appear FROM members WHERE register_id=?",(user_id,))
+        user = cur.fetchall()
+        cur.close()
+        return render_template("mypage_edit.html", name = firstname, name_print=user)
     else:
-        return render_template("login.html")
+        return redirect("/login")
 
 @app.route("/editpage", methods = ["GET"])
 def editpage_get():
     if "id" in session :
+        user = session["id"]
+        user_id = user[0]
+
+
+
+        # 入力フォームに入ってきた値を受けとる
+        name = request.form.get("name")
+        img = request.form.get("img_url")
+        manager = request.form.get("mamagement")
+        portfolio = request.form.get("portfolio")
+        min = request.form.get("min")
+        max = request.form.get("max")
+        twitter = request.form.get("t_url")
+        insta = request.form.get("i_url")
+        facebook = request.form.get("f_url")
+        mail = request.form.get("mail")
+        tel = request.form.get("tel")
+        free = request.form.get("free")
+        appear = request.form.get("appear")
+
+        
         return render_template("mypage_edit.html")
     else:
-        return render_template("login.html")
+        return redirect("/login")
 
-@app.route("/edit")
+
 
 
 
