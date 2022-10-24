@@ -4,75 +4,86 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/style.css">
+
     <title>個人ページ</title>
 </head>
 <body>
-    <h1>マイページ</h1>
-    <p>※変更を加えたら、必ず「変更を保存する」のボタンを押してください</p>
+    <p class="item">※変更を加えたら、必ず「変更を保存する」のボタンを押してください</p>
     <form action="/editpage" method="post">
         <div class="prof">
-            <form action="/editpage" method="get">
-                <h2>こんにちは！{{name}}さん</h2>
-            </form>
+            <div class="hello_name item">
+                <h2>{{name}}さんのマイページ</h2>
+            </div>
             
-            <label>サイトでの表示名</label>
-            <input type="text" name="name" value="{{name_print}}">
-            <label>プロフィール画像</label>
-            <input type="file" name="img_url" accept="image/*" value="{{img}}">
-
-            <label>サイト管理者ですか？</label>
-            <select name="management">
+            <div class="nickname item">
+                <p class="label">サイトでの表示名</p>
+                <input type="text" name="name" value="{{name_print}}">
+            </div>
+            <div class="prof-img item">
+                <label class="label">プロフィール画像</label><br>
+                <input type="file" name="img_url" accept="image/*" value="{{img}}">
+            </div>
+            <div class="manager item">
+                <label for="manager" class="label">サイト管理者ですか？</label>
+                <select name="management" id="manager">
                 <option value="0">選択してください</option>
                 <option value="2">はい</option>
                 <option value="1">いいえ</option>
-            </select>
+                </select>
+            </div>
+            
 
-            <div class="top_free">
-                <p>TOPページの一覧に表示されるコメント（50字以内）</p>
+            <div class="top_free item">
+                <p class="label">TOPページの一覧に表示されるコメント（50字以内）</p>
                 <input type="text" name="top_free" value="{{top_free}}">
             </div>
-
-            <label>ポートフォリオの登録</label>
-            <p>pdfファイルまたは、画像のみアップロードできます。</p>
-            <input type="file" name="portfolio" accept="image/*,.pdf" multiple value="{{portfolio}}">
+            <div class="folio item">
+                <p class="label">ポートフォリオの登録<br>pdfファイルまたは、画像のみアップロードできます。</p>
+                <input type="file" name="portfolio" accept="image/*,.pdf" multiple value="{{portfolio}}">
+            </div>
             
-            <p>HP制作料金設定</p>
+            <div class="item">
+                <p class="label">HP制作料金設定</p>
                 <label>￥</label>
                 <input type="number" name="min" value="{{min}}">
                 <label>～</label>
                 <input type="number" name="max" value="{{max}}">
-            
-            <div class="sns_link">
-                <label>twitter URL</label>
+            </div>
+                
+            <div class="sns_link item">
+                <p class="label">twitter URL</p>
                 <input type="url" name="t_url" value="{{t_url}}">
-                <label>Instagram URL</label>
+                <p class="label">Instagram URL</p>
                 <input type="url" name="i_url" value="{{i_url}}">
-                <label>Facebook URL</label>
+                <p class="label">Facebook URL</p>
                 <input type="url" name="f_url" value="{{f_url}}">
             </div>
             
-            <div class="contact">
-                <p>メールアドレス</p>
+            <div class="contact item">
+                <p class="label">メールアドレス</p>
                 <input type="text" name="mail" value="{{mail}}">
-                <p>電話番号</p>
+                <p class="label">電話番号</p>
                 <input type="text" name="tel" value="{{tel}}">
             </div>
                 
 
         </div>
-        <div class="free">
-            <p>自由欄</p>
+        <div class="free item">
+            <p class="label">自由欄</p>
             <input type="text" name="free" value="{{free}}">
         </div>
-        <div class="appear_choice">
-            <p>依頼を受け付けるかどうか選択してください。<br>(非表示にした場合、データは残されたままですがサイトには掲載されません。)</p>
+        <div class="appear_choice item">
+            <p class="label">依頼を受け付けるかどうか選択してください。<br>(非表示にした場合、データは残されたままですがサイトには掲載されません。)</p>
             <input type="radio" name="appear" value="1" id="choice1">
             <label for="choice1">依頼を受け付ける</label>
             <input type="radio" name="appear" value="0" id="choice2">
             <label for="choice2">非表示にする</label>
-    
+        </div>
+        <div class="update item">
             <input type="submit" name="save" value="変更を保存する">
         </div>
+
     </form>
     
     
