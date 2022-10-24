@@ -188,7 +188,7 @@ def regist_post() :
             cur.execute("SELECT id FROM register WHERE mail=?",(mail,))
             register_id = cur.fetchone()
             cur.execute("INSERT INTO members values (NULL, NULL, NULL, NULL, NULL, NULL,\
-                NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ?)", (register_id[0],))
+                NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ?)", (register_id[0],))
             conn.commit()
             # color.dbとの接続を終了
             cur.close()
@@ -241,26 +241,41 @@ def editpage_post():
         # membersから編集前の情報を取ってくる
         conn = sqlite3.connect("avg36.db")
         cur = conn.cursor()
-        cur.execute("SELECT name, img, manager, portfolio, price_min, price_max, twitter,\
-            insta, facebook, mail, tel, free, appear FROM members WHERE register_id=?",(user_id,))
-        user = cur.fetchall()
+        cur.execute("SELECT name, img, top_free, portfolio, price_min, price_max, twitter,\
+            insta, facebook, mail, tel, free FROM members WHERE register_id=?",(user_id,))
+        user_list = cur.fetchall()
+        user = user_list[0]
         cur.close()
-        return render_template("mypage_edit.html", name = firstname, name_print=user)
+        name = user[0]
+        img = user[1]
+        topfree = user[2]
+        portfolio = user[3]
+        min = user[4]
+        max = user[5]
+        twitter = user[6]
+        insta = user[7]
+        facebook = user[8]
+        mail = user[9]
+        tel = user[10]
+        free = user[11]
+
+        return render_template("mypage_edit.html", name = firstname[0], name_print=name, img=img,\
+            top_free=topfree, portfolio=portfolio, min=min, max=max, t_url=twitter, i_url=insta,\
+                f_url=facebook, mail=mail, tel=tel, free=free)
     else:
         return redirect("/login")
 
-@app.route("/editpage", methods = ["GET"])
+@app.route("/editpage", methods = ["GET", "POST"])
 def editpage_get():
     if "id" in session :
         user = session["id"]
         user_id = user[0]
 
-
-
-        # 入力フォームに入ってきた値を受けとる
+        # 入力フォームに入ってきた値を受けとり、DBをアップデートする
         name = request.form.get("name")
         img = request.form.get("img_url")
         manager = request.form.get("mamagement")
+        topfree = request.form.get("top_free")
         portfolio = request.form.get("portfolio")
         min = request.form.get("min")
         max = request.form.get("max")
@@ -272,13 +287,25 @@ def editpage_get():
         free = request.form.get("free")
         appear = request.form.get("appear")
 
+        conn = sqlite3.connect("avg36.db")
+        c = conn.cursor()
+        c.execute("UPDATE members SET name=?, img=?, manager=?, top_free=?, portfolio=?, \
+            price_min=?, price_max=?, twitter=?, insta=?, facebook=?, mail=?, tel=?, \
+                free=?, appear=?, WHERE register_id=?",(name, img, manager, topfree, \
+                    portfolio, min, max, twitter, insta, facebook, mail, tel, free, appear, user_id))
+        conn.commit()
+        c.close()
         
-        return render_template("mypage_edit.html")
+        return render_template("edit_done.html")
     else:
         return redirect("/login")
 
 
-
+# ログアウト機能
+@app.route("/logout", methods = ["GET"])
+def logout() :
+    session.pop("id", None)
+    return redirect("\login")
 
 
 

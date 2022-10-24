@@ -25,9 +25,15 @@
                 <option value="0">選択してください</option>
                 <option value="2">はい</option>
                 <option value="1">いいえ</option>
-             </select>
+            </select>
+
+            <div class="top_free">
+                <p>TOPページの一覧に表示されるコメント（50字以内）</p>
+                <input type="text" name="top_free" value="{{top_free}}">
+            </div>
 
             <label>ポートフォリオの登録</label>
+            <p>pdfファイルまたは、画像のみアップロードできます。</p>
             <input type="file" name="portfolio" accept="image/*,.pdf" multiple value="{{portfolio}}">
             
             <p>HP制作料金設定</p>
