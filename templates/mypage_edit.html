@@ -22,15 +22,20 @@
             </div>
             <div class="prof-img item">
                 <label class="label">プロフィール画像</label><br>
-                <input type="file" name="img_url" accept="image/*" value="{{img}}">
+                <input type="file" name="img" accept="image/*" value="{{img}}">
+                <!-- <form enctype="multipart/form-data">
+                    
+                    <input type="submit" value="アップロードする">
+                </form> -->
             </div>
             <div class="manager item">
-                <label for="manager" class="label">サイト管理者ですか？</label>
-                <select name="management" id="manager">
-                <option value="0">選択してください</option>
-                <option value="2">はい</option>
-                <option value="1">いいえ</option>
-                </select>
+                <p class="label">サイト管理者ですか？</p>
+                
+                <input type="radio" name="management" value="1" id="select1">
+                <label for="select1">はい</label>
+                <input type="radio" name="management" value="0" id="select2">
+                <label for="select2">いいえ</label>
+
             </div>
             
 

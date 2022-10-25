@@ -128,7 +128,7 @@ def editpage_post():
         # 入力フォームに入ってきた値を受けとり、DBをアップデートする
         name = request.form.get("name")
         img = request.form.get("img_url")
-        manager = request.form.get("mamagement")
+        manager = request.form.get("management")
         topfree = request.form.get("top_free")
         portfolio = request.form.get("portfolio")
         min = request.form.get("min")

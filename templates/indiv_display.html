@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/style_pc.css">
+    <title>個人詳細ページ</title>
+</head>
+<body>
+    {% extends '2member.html' %}
+    {% block content %}
+  <style>
+    body {
+      margin: auto;
+      font-size: 20px;
+      width: 600px;
+      margin-left: auto;
+      margin-top: 30px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateY(-50%) translateX(-50%);
+    }
+    h3 {
+      color: rgb(238, 117, 47);
+    }
+  </style>
+    <div class="card" style="width: 18rem;">
+      <div class="caed-body">
+        <img src="..." class="card-img-top" alt="" width="450" height="450">
+        <h2 class="card-title">{{title}}</h2>
+        <h3 class="card-price">￥{{}}～￥{{}}</h3>
+        <h2 class="card-title">{{<mane>}}</h2>
+        <p class="card-text">{{ここに説明が入るよここに説明が入るよここに説明が入るよここに説明が入るよここに説明が入るよここに説明が入るよ}}</p>
+        <a href="#" class="btn">twitter</a>
+        <a href="#" class="btn">instagram</a>
+        <a href="#" class="btn">facebook</a>
+        <p class="mail">mailアドレス{{}}</p>
+        <p class="text">TEL{{}}</p> -->
+      </div>
+    </div>
+    {% endblock %}
+</body>
+</html>
