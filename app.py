@@ -127,7 +127,7 @@ def editpage_post():
 
         # 入力フォームに入ってきた値を受けとり、DBをアップデートする
         name = request.form.get("name")
-        img = request.form.get("img_url")
+        img = request.form.get("img")
         manager = request.form.get("management")
         topfree = request.form.get("top_free")
         portfolio = request.form.get("portfolio")
@@ -155,30 +155,50 @@ def editpage_post():
         return redirect("/login")
 
 
+# TOPページの個人紹介一覧にDBからとってきた情報を表示する
+@app.route("/top", methods = ["GET", "POST"])
+def top_display() :
+    conn = sqlite3.connect("avg36.db")
+    cur = conn.cursor()
+    cur.execute("SELECT name, price_min, price_max, top_free FROM members WHERE appear=1")
+    user_list = cur.fetchall()
+    data = user_list
+    cur.close()
+    return render_template("top_indiv.html", user_list=data)
+
+
+# 個人詳細ページにDBからとってきた情報を表示する
+@app.route("/detail", methods = ["GET", "POST"])
+def indiv_detail() :
+    conn = sqlite3.connect("avg36.db")
+    cur = conn.cursor()
+    cur.execute("SELECT name FROM members WHERE appear=1")
+    user_list = cur.fetchall()
+    cur.close()
+    for i in user_list :
+        return render_template("top_indiv.html", name=i[0], min = i[1], max = i[2], comment = i[3])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ログアウト機能
 @app.route("/logout", methods = ["GET"])
 def logout() :
     session.pop("id", None)
     return redirect("\login")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # 404error

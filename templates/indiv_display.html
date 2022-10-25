@@ -29,15 +29,14 @@
     <div class="card" style="width: 18rem;">
       <div class="caed-body">
         <img src="..." class="card-img-top" alt="" width="450" height="450">
-        <h2 class="card-title">{{title}}</h2>
-        <h3 class="card-price">￥{{}}～￥{{}}</h3>
-        <h2 class="card-title">{{<mane>}}</h2>
-        <p class="card-text">{{ここに説明が入るよここに説明が入るよここに説明が入るよここに説明が入るよここに説明が入るよここに説明が入るよ}}</p>
-        <a href="#" class="btn">twitter</a>
-        <a href="#" class="btn">instagram</a>
-        <a href="#" class="btn">facebook</a>
-        <p class="mail">mailアドレス{{}}</p>
-        <p class="text">TEL{{}}</p> -->
+        <h2 class="card-title">{{name}}</h2>
+        <h3 class="card-price">￥{{min}}～￥{{max}}</h3>
+        <a href="{{t_url}}" class="btn">twitter</a>
+        <a href="{{i_url}}" class="btn">instagram</a>
+        <a href="{{f_url}}" class="btn">facebook</a>
+        <p class="mail">{{mail}}</p>
+        <p class="text">{{tel}}</p>
+        <p class="card-text">{{free}}</p>
       </div>
     </div>
     {% endblock %}

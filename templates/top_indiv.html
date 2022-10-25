@@ -16,19 +16,17 @@
       color: rgb(238, 117, 47);
     }
   </style>
+  <!-- htmlでfor文をまわしてmembersからappearが1になっている人の分だけ表示する
+  user_listの中には1人1人の情報がタプル型でリストに格納されている -->
+    {% for user in user_list %}
     <div class="card" style="width: 18rem;">
       <div class="caed-body">
         <img src="..." class="card-img-top" alt="" width="300" height="300">
-        <h2 class="card-title">{{<"title">}}</h2>
-        <h3 class="card-price">￥{{}}～￥{{}}</h3>
-        <h2 class="card-title">{{<mane>}}</h2>
-          <button type="button">詳細ページを見る</button>
-        <!-- <p class="card-text">{{ここに説明が入るよここに説明が入るよここに説明が入るよここに説明が入るよここに説明が入るよここに説明が入るよ}}</p> -->
-        <!-- <a href="#" class="btn">twitter</a>
-        <a href="#" class="btn">instagram</a>
-        <a href="#" class="btn">facebook</a>
-        <p class="mail">mailアドレス{{}}</p>
-        <p class="text">TEL{{}}</p> -->
+        <h2 class="card-title">{{user[0]}}</h2>
+        <h3 class="card-price">￥{{user[1]}}～￥{{user[2]}}</h3>
+        <h2 class="card-title">{{user[3]}}</h2>
+        <button onclick="location.href='/detail'">詳細ページを見る</button>
       </div>
     </div>
+    {% endfor %}
     {% endblock %}
