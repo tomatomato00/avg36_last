@@ -10,14 +10,25 @@
 </head>
 
 <style>
+    body{
+        margin-left: 200px;
+        background-color: bisque;
+    }
     .txt{
         display: inline-block;
         width: 50%;
         padding: 0.5em;
         border: 1px solid #999;
         box-sizing: border-box;
-        background: #f2f2f2;
+        background-color: white;
         margin: 0.5em 0;
+    }
+    button.button{
+        background-color: rgba(234, 119, 4, 0.8);
+        border-radius: 10px;
+        border: 2px solid rgba(234, 119, 4, 1);
+        padding: 10px 30px;
+        font-size: larger;
     }
 </style>
 
@@ -37,6 +48,7 @@
             </div>
             <div class="prof-img item">                
                 <label class="label">プロフィール画像のアップロード</label><br>
+                <p>※正方形（1：1）サイズ推奨</p>
                 <input type="file" name="img_file" accept="image/*" value="{{img_file}}" required>
  
             </div>
@@ -88,7 +100,7 @@
         </div>
         <div class="free item">
             <p class="label">自由欄</p>
-            <textarea name="free" cols="80" rows="30" wrap="hard">{{free}}</textarea>
+            <textarea name="free" cols="60" rows="15" wrap="hard">{{free}}</textarea>
         </div>
         <div class="appear_choice item">
             <p class="label">依頼を受け付けるかどうか選択してください。<br>(非表示にした場合、データは残されたままですがサイトには掲載されません。)</p>
@@ -98,7 +110,7 @@
             <label for="choice2">非表示にする</label>
         </div>
         <div class="update item">
-            <input type="submit" name="save" value="変更を保存する">
+            <button type="submit" name="save" aria-setsize="30" class="button">変更を保存する</button>
         </div>
 
     </form>

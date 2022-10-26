@@ -8,13 +8,21 @@
     <title>個人詳細ページ</title>
 </head>
 <body>
-    {% extends '2member.html' %}
-    {% block content %}
   <style>
+    .card {
+      padding:  10px;
+    }
+    .card-body{
+    padding: 12px;
+    margin:  12px;
+    border-radius: 5px;
+    width: 100%;
+    }
     body {
+      background-color: #fff;
       margin: auto;
       font-size: 20px;
-      width: 600px;
+      width: 1200px;
       margin-left: auto;
       margin-top: 30px;
       position: absolute;
@@ -24,26 +32,64 @@
     }
     h3 {
       color: rgb(238, 117, 47);
+      width: 100%;
+      top: 428px;
+      left: 80%;
+      text-align: center;
     }
-
+    .card-name {
+      position: absolute;
+      font-size: 35px;
+      font-weight: bold;
+      top: 30px;
+      left: 700px;
+    }
+    .card-price {
+      font-size: 35px;
+      position:absolute;
+      top: 100px;
+      width: 800px;
+      left: 400px;
+    }
     .twitter{
+     position: absolute;
+     top: 250px;
+     left: 900px;
       background-color: rgba(35, 131, 179, 0.8);
       border: 2px solid rgba(35, 131, 179, 1);
+      width: 100px;
     }
-
     .insta{
+      position: absolute;
+      top: 250px;
+      left: 700px;
       background-color: rgba(235, 108, 18, 0.9);
       border: 2px solid rgba(235, 108, 50, 1);
+      width: 100px;
     }
-
     .facebook{
+      position: absolute;
+      top: 250px;
+      left: 500px;
       background-color: rgba(0, 20, 130, 0.8);
       border: 2px solid rgba(0, 20, 160, 1);
+      width: 100px;
     }
-
     .portfolio{
+      position: absolute;
+      top: 350px;
+      left: 600px;
       background-color: rgba(196, 4, 62, 0.8);
       border: 2px solid rgba(196, 4, 100, 1);
+      width: 300px;
+      height: 40px;
+    }
+    .portfolio:hover{
+      background-color: rgba(58, 66, 70, 0.7);
+    }
+    .portfolio:active{
+      background-color: rgba(58, 66, 70, 0.7);
+      transform: scale(0.95);
     }
 
     .btn{
@@ -53,9 +99,7 @@
       font-weight: bold;
       text-align: center;
       text-decoration: none;
-      display: inline-block;
     }
-
     .btn_round {
       margin: 10px 0;
       padding: 10px 40px;
@@ -64,58 +108,68 @@
       font-weight: bold;
       text-align: center;
       text-decoration: none;
-      display: inline-block;
     }
-
     .btn_round:hover{
       background-color: rgba(58, 66, 70, 0.7);
     }
-
     .btn_round:active{
       background-color: rgba(58, 66, 70, 0.7);
       transform: scale(0.95);
     }
-
     .url_txt{
       color: azure;
     }
+    .prof-img {
+      width: 458px;
+    }
+
+    .contact{
+      font-size: 25px;
+    }
+
+    .line{
+      margin-top: 45px;
+    }
+    .free{
+      margin: 20px 15px;
+      padding: 10px 20px;
+      border: 1px solid grey;
+
+    }
+
 
   </style>
-
-
-    <div class="card" style="width: 18rem;">
+    <div class="card">
       <div class="card-body">
-
-        <h2 class="card-title">{{name}}</h2>
-
-        <div class="prof-img">
-          <img src="./uploads/{{image_file}}" width="450" height="450">
-        </div>
-        
-
-        <div class="btn portfolio">
-          <a href="./uploads/{{portfolio_file}}" class="url_txt" rel="noopener">portfolio</a>
-        </div>
-
+        <h2 class="card-name">{{name}}</h2>
         <h3 class="card-price">￥{{min}}～￥{{max}}</h3>
-
+        <div class="prof-img">
+          <img src="./uploads/{{image_file}}" width="400" height="400">
+        </div>
+        <div class="btn portfolio">
+          <a href="./uploads/{{portfolio_file}}" class="url_txt" rel="noopener">ポートフォリオ</a>
+        </div>
         <div class="btn_round twitter">
           <a href="{{t_url}}" class="url_txt">twitter</a>
         </div>
-
         <div class="btn_round insta">
           <a href="{{i_url}}" class="url_txt">instagram</a>
         </div>
-
         <div class="btn_round facebook">
           <a href="{{f_url}}" class="url_txt">facebook</a>
         </div>
+        <div class="contact">
+          <p class="mail">mail : {{mail}}</p>
+          <p class="text">TEL : {{tel}}</p>
+        </div>
+
+        <div class="line">
+        </div>
+        <div class="free">
+          <p class="card-text">{{free}}</p>
+        </div>
         
-        <p class="mail">{{mail}}</p>
-        <p class="text">{{tel}}</p>
-        <p class="card-text">{{free}}</p>
       </div>
     </div>
-    {% endblock %}
 </body>
 </html>

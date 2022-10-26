@@ -1,6 +1,9 @@
 import os
 import sqlite3
 import mimetypes
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from datetime import timedelta 
 from flask import Flask, render_template, request, redirect, session
 
@@ -20,13 +23,13 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'pdf'}
 
 
 # 新規登録ページを表示
-@app.route("/form", methods = ["GET"])
+@app.route("/regist", methods = ["GET"])
 def regist_get():
     return render_template("regist.html")
 
 
 # 登録ページで入力した情報をDBに登録し、送信する
-@app.route("/form", methods = ["POST"])
+@app.route("/regist", methods = ["POST"])
 def regist_post() :
     # 入力フォームに入ってきた値を受け取る
     last_name = request.form.get("last_name")
@@ -88,7 +91,7 @@ def login_post():
     c.close()
 
     if register_id is None :
-        return redirect("/form")
+        return redirect("/regist")
 
     else :
         session["id"] = register_id[0]
@@ -265,6 +268,53 @@ def indiv_detail() :
     i = user_list
     cur.close()
     return render_template("indiv_display.html", name=i[0], min = i[1], max = i[2], comment = i[3])
+
+
+
+
+
+
+
+
+
+# お問い合わせフォーム
+@app.route("/contact")
+def contact() :
+    return render_template("contact.html")
+
+
+@app.route("/send", methods = ["GET", "POST"])
+def contact_send() :
+    name = request.form.get("name")
+    company = request.form.get("company")
+    tel = request.form.get("tel")
+    mail = request.form.get("email")
+    contents = request.form.get("contents")
+
+    smtp_server = 'smtp.gmail.com' #ホストを指定
+    smtp_port = 587
+    server = smtplib.SMTP(smtp_server, smtp_port)
+    server.starttls()
+    # smtp_account_id = "text" #ユーザー名を指定
+    # smtp_account_pass = 'password' #パスワードを入力
+    to_mail = "br18087@shibaura-it.ac.jp"
+    # login_address = mail
+    # server.login(login_address)
+
+    msg = MIMEMultipart('alternative')
+    msg['Subject'] = "お問い合わせ" #件名を入力
+    msg['From'] = mail
+    msg['To'] = "br18087@shibaura-it.ac.jp"
+    txt = "{}{}{}{}{}".format(name, company, tel, mail, contents)
+    text = MIMEText(txt)
+    msg.attach(text)
+    # part1 = MIMEText(text, 'plain')
+
+    server.send_message(msg)
+    server.quit()
+    return "お問い合わせを送信しました"
+
+
 
 
 

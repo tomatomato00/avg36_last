@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お問い合わせフォーム</title>
+</head>
+<body>
+  <style>
+    body {
+      background-color: bisque;
+      font-size: 18px;
+      width: 1000px;
+      margin-left: auto;
+    }
+
+    .example{
+        margin: 25px 0;
+    }
+
+    .btn{
+        margin: 25px 0 100px 0;
+    }
+
+    button.button{
+        padding: 10px 40px;
+        background-color: rgba(255, 151, 66, 0.7);
+        border: 2px solid rgba(255, 151, 66, 1);
+        font-size: large;
+        font-weight: 800;
+        color: black;
+        -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+        box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+    }
+  </style>
+
+      <h1>ご相談フォーム</h1>
+        <form enctype="text/plain" action="/send" method="post">
+            <div class="example">
+                <label id="name">お名前（必須）</label><br>
+                <input type="text" for="name" name="name" size="40" placeholder="例) 天草太郎" required>
+            </div>
+
+            <div class="example">
+                <label id="comp">会社名・店名</label><br>
+                <input type="text" for="comp" name="company" size="40">
+            </div>
+
+            <div class="example">
+                <label id="tel">電話番号</label><br>
+                <input type="text" for="tel" name="tel" size="40" placeholder="半角入力・ハイフンなし">
+            </div>
+ 
+            <div class="example">
+                <label id="mail">メールアドレス（必須）</label><br>
+                <input type="text" for="mail" name="email" size="40" required>
+            </div>
+
+            <div class="example">
+                <label id="cont">お問い合わせ</label><br>
+                <textarea name="contents" for="cont" cols="75" rows="18" wrap="hard" required></textarea>
+            </div>
+
+            <div class="btn">
+                <button type="submit" aria-setsize="50" class="button">送信</button>
+            </div>
+            
+        </form>
+    
+</body>
+</html>
