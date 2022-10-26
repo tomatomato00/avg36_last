@@ -1,85 +1,109 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/style_pc.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <title>あまくさWEB銀天街</title>
-</head>
-<body>
-  <header>
-    <ul>
-        <li><a href="#sec1">top</a></li>
-        <li><a href="#member">制作者紹介</a></li>
-        <li><a href="#sec3">お問い合わせ</a></li>
-        <li><a href="#sec3">sunabacoとは</a></li>
-        <li><a href="#login">ログイン</a></li>
-        <li><a href="#school">卒業生新規登録</a></li>
-    </ul>
-</header>
-<style>
-    body {
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <style>
+    body{
       background: linear-gradient(#F8CE6C, #13B2E2 ) fixed;
       font-size: 20px;
       margin-left: auto;
     }
-    h2 {
-      color: rgb(245, 242, 242);
-      text-align: center;
-    }
-    header {
-      height: 30px;
-      background: #5E5CF0;
-    }
-    a {
-      color: rgb(250, 248, 248);
-    }
-    header ul {
-      margin: 0 ;
-      display: flex;
-    }
-    header li {
-      color: #F9F7F7;
-      width: 25%;
-      line-height: 30px;
-      transition: 0.2s;
-    }
-    h1 {
-      text-align: center;
-      color: #050505;
-      -webkit-text-stroke: 0.5px #FFF;
-    }
-    h3 {
-      text-align: center;
-    }
-    p {
-      -webkit-text-stroke: 0.3px rgb(148, 146, 146);
-    }
-  </style>
-      <h1>天草Webの銀天街</h1>
-    <form>
-        <tr>
-          <div class="example">
-              <h3>ホームページが欲しいが知らない人に頼むのは勇気がいる。<br>
-                ホームページ制作費を安く抑えたい。<br>
-                地元の人で起業して一緒に天草を盛り上げたい。<br>
-                業務が忙しくてホームページの更新をして欲しい。<br>
-                少しインターネットの事を勉強してみたい。<br>
-                <br>
-                <h2>
-                このサイトでは、インターネットに関する事を天草で開催されているプログラミングスクール「SUNABACO」卒業生達と
-                天草の事業者様とをマッチングのお手伝いをさせていただく<br>マッチングサイトになります。<br></h2>
-              </h3>
-          </div>
-        </tr>
-      </form>
-    <div class="f-container">
-      <div class="f-item01">
-{% block content %}
-{% endblock %}
+    </style>
+    <nav class="navbar fixed-top navbar-expand-lg naver-light bg-warning">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav w-100 nav-justified">
+            <li class="nav-item active">
+              <a class="nav-link text-white" href="#">TOP<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item" style=" margin-left: auto;">
+                <a class="nav-link text-white" href="#" style=" margin-left: auto;">個人一覧</a>
+              </li><li class="nav-item">
+                <a class="nav-link text-white" href="#">sunabacoとは</a>
+              </li><li class="nav-item">
+                <a class="nav-link text-white" href="#">login</a>
+              </li><li class="nav-item">
+                <a class="nav-link text-white" href="#" style=" margin-left: auto;">卒業生新規登録</a>
+              </li>
+          </ul>
+        </div>
+      </nav>
+      <!-- <header class="header_a">
+        <div class="container">
+          <nav class="aria_nav_header">
+            <ul class="list_nav_header">
+                <li>
+                    <a href="">TOPへ</a>
+                    <a href="">個人一覧</a>
+                    <a href="">SUNABACOとは</a>
+                    <a href="">ログイン</a>
+                    <a href="">卒業生新規登録</a>
+                    <a href="">お問い合わせ</a>
+                </li>
+            </ul>
+          </nav>
+        </div>
+      </header> -->
+      <div class="jumbotron text-center" style="background: linear-gradient(#F8CE6C, #13B2E2 ) fixed;;">
+        <h1 class id="display-4" style="-webkit-text-stroke: 0.5px rgb(249, 247, 247);">天草Webの銀天街</h1>
+        <p class="lead">ホームページが欲しいが知らない人に頼むのは勇気がいる。<br>
+            ホームページ制作費を安く抑えたい。<br>
+            地元の人で起業して一緒に天草を盛り上げたい。<br>
+            業務が忙しくてホームページの更新をして欲しい。<br>
+            少しインターネットの事を勉強してみたい。<br>
+            <br>
+            このサイトでは、インターネットに関する事を天草で開催されているプログラミングスクール「SUNABACO」卒業生達と
+            天草の事業者様とをマッチングのお手伝いをさせていただく<br>マッチングサイトになります。<br></p>
       </div>
-    </div>
-</body>
+    <div class="container text-center">
+        <div class="row">
+          {% for user in user_list %}
+          <div class="col-sm">
+            <div class="card">
+                <img src="../static/uploads/{{user[4]}}" class="card-img-top" alt="{{user[4]}}" width="300px" height="300px">
+                <div class="card-body">
+                  <h5 class="card-title">{{user[0]}}</h5>
+                   <p class="card-text">￥{{user[1]}}~￥{{user[2]}}</p>
+                   <p class="card-text">{{user[3]}}</p>
+                  <a href="/detail" class="btn btn-primary">詳細ページ</a>
+                </div>
+              </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="card text-center">
+        <div class="card-header">
+          Featured
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a href="#jumbotron" class="btn btn-primary">TOP</a>
+        </div>
+        <div class="card-footer text-muted">
+          2 days ago
+        </div>
+      </div>
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <!-- Option 2: jQuery, Popper.js, and Bootstrap JS
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    -->
+  </body>
 </html>

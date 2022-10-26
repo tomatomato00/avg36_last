@@ -1,11 +1,23 @@
+import os
 import sqlite3
+import mimetypes
 from datetime import timedelta 
 from flask import Flask, render_template, request, redirect, session
+
+from werkzeug.utils import secure_filename
+
 
 app = Flask(__name__)
 
 app.secret_key = 'team3avg36'
 app.permanent_session_lifetime = timedelta(minutes=45)
+
+
+# 画像のアップロード先のディレクトリ
+app.config["UPLOAD_FOLDER"] = "./static/uploads"
+# アップロードされる拡張子の制限
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'pdf'}
+
 
 # 新規登録ページを表示
 @app.route("/form", methods = ["GET"])
@@ -114,7 +126,7 @@ def editpage_get():
         tel = user[10]
         free = user[11]
 
-        return render_template("mypage_edit.html", name = firstname[0], name_print=name, img=img,\
+        return render_template("mypage_edit.html", name = firstname[0], name_print=name, img_file=img,\
             top_free=topfree, portfolio=portfolio, min=min, max=max, t_url=twitter, i_url=insta,\
                 f_url=facebook, mail=mail, tel=tel, free=free)
     else:
@@ -127,7 +139,7 @@ def editpage_post():
 
         # 入力フォームに入ってきた値を受けとり、DBをアップデートする
         name = request.form.get("name")
-        img = request.form.get("img")
+        img = request.form.get("img_file")
         manager = request.form.get("management")
         topfree = request.form.get("top_free")
         portfolio = request.form.get("portfolio")
@@ -149,22 +161,98 @@ def editpage_post():
                     portfolio, min, max, twitter, insta, facebook, mail, tel, free, appear, user_id))
         conn.commit()
         c.close()
-        
+
+        #画像アップロード
+        conn = sqlite3.connect("avg36.db")
+
+        # imgテーブルとuploadsディレクトリに,file名（数字に変換）とファイル形式を格納
+        file = None
+        max_title = 0
+        if "img_file" in request.files :
+            file = request.files["img_file"]
+            type,ext = file.mimetype.split("/")
+            if type != "image" :
+                return "変なファイルを送らないでください"
+
+            c = conn.cursor()
+            c.execute("select max(title) from uploads")
+            row = c.fetchone()
+            if row[0] is None:
+                max_title = 1
+            else :
+                max_title = int(row[0]) + 1
+
+            file.save(os.path.join(app.config["UPLOAD_FOLDER"],f"{max_title}.{ext}"))
+            
+            c.execute("insert into uploads values(null, ?, ?)", (max_title, ext))
+            conn.commit()
+            c.execute("update members set img=? where register_id=?",(max_title, user_id))
+            conn.commit()
+            c.close()
+            print(f"mime:{file.mimetype}\ttype={type}\ttext={ext}")
+
+
+        #ポートフォリオのアップロード
+        conn = sqlite3.connect("avg36.db")
+        # portfolioテーブルとuploadsディレクトリに,file名（数字に変換）とファイル形式を格納
+        file = None
+        if "portfolio" in request.files :
+            file = request.files["portfolio"]
+            type,ext = file.mimetype.split("/")
+            if type != "application" :
+                return "変なファイルを送らないでください"
+
+            c = conn.cursor()
+            c.execute("select max(title) from uploads")
+            row = c.fetchone()
+            if row[0] is None:
+                max_title = 1
+            else :
+                max_title = int(row[0]) + 1
+
+            file.save(os.path.join(app.config["UPLOAD_FOLDER"],f"{max_title}.{ext}"))
+            
+            c.execute("insert into uploads values(null, ?, ?)", (max_title, ext))
+            conn.commit()
+            c.execute("update members set portfolio=? where register_id=?",(max_title, user_id))
+            conn.commit()
+            c.close()
+            print(f"mime:{file.mimetype}\ttype={type}\ttext={ext}")
+
         return render_template("edit_done.html")
     else:
         return redirect("/login")
 
 
+
+
+
+
 # TOPページの個人紹介一覧にDBからとってきた情報を表示する
 @app.route("/top", methods = ["GET", "POST"])
 def top_display() :
+    indiv_list = []
+    in_list = []
     conn = sqlite3.connect("avg36.db")
     cur = conn.cursor()
-    cur.execute("SELECT name, price_min, price_max, top_free FROM members WHERE appear=1")
+    cur.execute("SELECT name, price_min, price_max, top_free, img FROM members WHERE appear=1")
     user_list = cur.fetchall()
-    data = user_list
+    for i in user_list :
+        for j in i :
+            in_list.append(j)
+        cur.execute("SELECT filetype from uploads where title=?",(in_list[4],))
+        filetype = cur.fetchone()
+        in_list[4] = in_list[4] + "." + filetype[0]
+
+        indiv_list.append(in_list)
+        in_list = []
+    print(indiv_list)
+
+    # uploadsテーブルからimgのデータをとってくる
     cur.close()
-    return render_template("top_indiv.html", user_list=data)
+
+    # img_file = str(img_file) + "." + filetype[0]
+    return render_template("top_indiv.html", user_list=indiv_list)
 
 
 # 個人詳細ページにDBからとってきた情報を表示する
@@ -172,23 +260,11 @@ def top_display() :
 def indiv_detail() :
     conn = sqlite3.connect("avg36.db")
     cur = conn.cursor()
-    cur.execute("SELECT name FROM members WHERE appear=1")
+    cur.execute("SELECT name, img, portfolio, price_min, price_max, twitter, insta, facebook, mail, tel, free FROM members WHERE")
     user_list = cur.fetchall()
+    i = user_list
     cur.close()
-    for i in user_list :
-        return render_template("top_indiv.html", name=i[0], min = i[1], max = i[2], comment = i[3])
-
-
-
-
-
-
-
-
-
-
-
-
+    return render_template("indiv_display.html", name=i[0], min = i[1], max = i[2], comment = i[3])
 
 
 

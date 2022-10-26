@@ -1,4 +1,4 @@
-{% extends 'index.html' %}
+<!-- {% extends 'index.html' %}
 {% block content %}
   <style>
     body {
@@ -18,15 +18,20 @@
   </style>
   <!-- htmlでfor文をまわしてmembersからappearが1になっている人の分だけ表示する
   user_listの中には1人1人の情報がタプル型でリストに格納されている -->
-    {% for user in user_list %}
-    <div class="card" style="width: 18rem;">
-      <div class="caed-body">
-        <img src="..." class="card-img-top" alt="" width="300" height="300">
-        <h2 class="card-title">{{user[0]}}</h2>
-        <h3 class="card-price">￥{{user[1]}}～￥{{user[2]}}</h3>
-        <h2 class="card-title">{{user[3]}}</h2>
-        <button onclick="location.href='/detail'">詳細ページを見る</button>
-      </div>
+    <!-- {% for user in user_list %}
+
+    <div class="col-sm">
+      <div class="card">
+          <img src="../static/uploads/{{user[4]}}" class="card-img-top" alt="{{user[4]}}">
+          <div class="card-body">
+            <h5 class="card-title">{{user[0]}}</h5>
+             <p class="card-text">￥{{user[1]}}~￥{{user[2]}}</p>
+             <p class="card-text">{{user[3]}}</p>
+            <a href="/detail" class="btn btn-primary">詳細ページ</a>
+          </div>
+        </div>
+      One of three columns
     </div>
+
     {% endfor %}
-    {% endblock %}
+    {% endblock %} --> 

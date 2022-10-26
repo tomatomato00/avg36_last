@@ -25,15 +25,92 @@
     h3 {
       color: rgb(238, 117, 47);
     }
+
+    .twitter{
+      background-color: rgba(35, 131, 179, 0.8);
+      border: 2px solid rgba(35, 131, 179, 1);
+    }
+
+    .insta{
+      background-color: rgba(235, 108, 18, 0.9);
+      border: 2px solid rgba(235, 108, 50, 1);
+    }
+
+    .facebook{
+      background-color: rgba(0, 20, 130, 0.8);
+      border: 2px solid rgba(0, 20, 160, 1);
+    }
+
+    .portfolio{
+      background-color: rgba(196, 4, 62, 0.8);
+      border: 2px solid rgba(196, 4, 100, 1);
+    }
+
+    .btn{
+      margin: 10px 0;
+      padding: 10px 40px;
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn_round {
+      margin: 10px 0;
+      padding: 10px 40px;
+      border-radius: 100px;
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn_round:hover{
+      background-color: rgba(58, 66, 70, 0.7);
+    }
+
+    .btn_round:active{
+      background-color: rgba(58, 66, 70, 0.7);
+      transform: scale(0.95);
+    }
+
+    .url_txt{
+      color: azure;
+    }
+
   </style>
+
+
     <div class="card" style="width: 18rem;">
-      <div class="caed-body">
-        <img src="..." class="card-img-top" alt="" width="450" height="450">
+      <div class="card-body">
+
         <h2 class="card-title">{{name}}</h2>
+
+        <div class="prof-img">
+          <img src="./uploads/{{image_file}}" width="450" height="450">
+        </div>
+        
+
+        <div class="btn portfolio">
+          <a href="./uploads/{{portfolio_file}}" class="url_txt" rel="noopener">portfolio</a>
+        </div>
+
         <h3 class="card-price">￥{{min}}～￥{{max}}</h3>
-        <a href="{{t_url}}" class="btn">twitter</a>
-        <a href="{{i_url}}" class="btn">instagram</a>
-        <a href="{{f_url}}" class="btn">facebook</a>
+
+        <div class="btn_round twitter">
+          <a href="{{t_url}}" class="url_txt">twitter</a>
+        </div>
+
+        <div class="btn_round insta">
+          <a href="{{i_url}}" class="url_txt">instagram</a>
+        </div>
+
+        <div class="btn_round facebook">
+          <a href="{{f_url}}" class="url_txt">facebook</a>
+        </div>
+        
         <p class="mail">{{mail}}</p>
         <p class="text">{{tel}}</p>
         <p class="card-text">{{free}}</p>

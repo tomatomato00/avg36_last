@@ -8,9 +8,24 @@
 
     <title>個人ページ</title>
 </head>
+
+<style>
+    .txt{
+        display: inline-block;
+        width: 50%;
+        padding: 0.5em;
+        border: 1px solid #999;
+        box-sizing: border-box;
+        background: #f2f2f2;
+        margin: 0.5em 0;
+    }
+</style>
+
+
+
 <body>
     <p class="item">※変更を加えたら、必ず「変更を保存する」のボタンを押してください</p>
-    <form action="/editpage" method="post">
+    <form action="/editpage" method="post" enctype="multipart/form-data">
         <div class="prof">
             <div class="hello_name item">
                 <h2>{{name}}さんのマイページ</h2>
@@ -18,15 +33,12 @@
             
             <div class="nickname item">
                 <p class="label">サイトでの表示名</p>
-                <input type="text" name="name" value="{{name_print}}">
+                <input type="text" name="name" value="{{name_print}}" required>
             </div>
-            <div class="prof-img item">
-                <label class="label">プロフィール画像</label><br>
-                <input type="file" name="img" accept="image/*" value="{{img}}">
-                <!-- <form enctype="multipart/form-data">
-                    
-                    <input type="submit" value="アップロードする">
-                </form> -->
+            <div class="prof-img item">                
+                <label class="label">プロフィール画像のアップロード</label><br>
+                <input type="file" name="img_file" accept="image/*" value="{{img_file}}" required>
+ 
             </div>
             <div class="manager item">
                 <p class="label">サイト管理者ですか？</p>
@@ -41,19 +53,19 @@
 
             <div class="top_free item">
                 <p class="label">TOPページの一覧に表示されるコメント（50字以内）</p>
-                <input type="text" name="top_free" value="{{top_free}}">
+                <input class="txt" name="top_free" value="{{top_free}}" maxlength="50" required>
             </div>
             <div class="folio item">
                 <p class="label">ポートフォリオの登録<br>pdfファイルまたは、画像のみアップロードできます。</p>
-                <input type="file" name="portfolio" accept="image/*,.pdf" multiple value="{{portfolio}}">
+                <input type="file" name="portfolio" accept=".pdf" multiple value="{{portfolio}}">
             </div>
             
             <div class="item">
                 <p class="label">HP制作料金設定</p>
                 <label>￥</label>
-                <input type="number" name="min" value="{{min}}">
+                <input type="number" name="min" value="{{min}}" required>
                 <label>～</label>
-                <input type="number" name="max" value="{{max}}">
+                <input type="number" name="max" value="{{max}}" required>
             </div>
                 
             <div class="sns_link item">
@@ -76,7 +88,7 @@
         </div>
         <div class="free item">
             <p class="label">自由欄</p>
-            <input type="text" name="free" value="{{free}}">
+            <textarea name="free" cols="80" rows="30" wrap="hard">{{free}}</textarea>
         </div>
         <div class="appear_choice item">
             <p class="label">依頼を受け付けるかどうか選択してください。<br>(非表示にした場合、データは残されたままですがサイトには掲載されません。)</p>
