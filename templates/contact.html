@@ -10,25 +10,37 @@
 </head>
 <body>
   <style>
+    nav{
+        font-weight: bold;
+        font-size: 20px;
+    }
     body {
-      background-color: bisque;
+        background: linear-gradient(#F8CE6C, #13B2E2 ) fixed;
       font-size: 18px;
       width: 1000px;
       margin-left: auto;
     }
+    h1{
+        font-size: 50px;
+          color: white;
+       
+          font-weight: bolder;
+          margin: 100px 0 40px 0;
+    }
 
     .example{
         margin: 25px 0;
+        font-weight: bold;
     }
 
     .btn{
-        margin: 25px 0 100px 0;
+        margin: 0 0 100px 0;
     }
 
     button.button{
         padding: 10px 40px;
-        background-color: rgba(255, 151, 66, 0.7);
-        border: 2px solid rgba(255, 151, 66, 1);
+        background-color: rgba(240, 112, 8, 0.8);
+        border: 2px solid rgba(240, 112, 8, 1);
         font-size: large;
         font-weight: 800;
         color: black;
@@ -60,7 +72,7 @@
             </div>
         </nav>
 
-      <h1 style="margin: 80px 0 15px 0;" id="top">ご相談フォーム</h1>
+      <h1 id="top">ご相談フォーム</h1>
         <form enctype="text/plain" action="/send" method="post">
             <div class="example">
                 <label id="name">お名前（必須）</label><br>
