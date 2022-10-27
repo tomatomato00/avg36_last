@@ -1,12 +1,8 @@
 import os
 import sqlite3
 import mimetypes
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 from datetime import timedelta 
 from flask import Flask, render_template, request, redirect, session
-
 from werkzeug.utils import secure_filename
 
 
@@ -238,7 +234,7 @@ def top_display() :
     in_list = []
     conn = sqlite3.connect("avg36.db")
     cur = conn.cursor()
-    cur.execute("SELECT name, price_min, price_max, top_free, img FROM members WHERE appear=1")
+    cur.execute("SELECT name, price_min, price_max, top_free, img, register_id FROM members WHERE appear=1")
     user_list = cur.fetchall()
     for i in user_list :
         for j in i :
@@ -255,26 +251,34 @@ def top_display() :
     cur.close()
 
     # img_file = str(img_file) + "." + filetype[0]
-    return render_template("top_indiv.html", user_list=indiv_list)
+    return render_template("index.html", user_list=indiv_list)
 
 
 # 個人詳細ページにDBからとってきた情報を表示する
-@app.route("/detail", methods = ["GET", "POST"])
-def indiv_detail() :
+@app.route("/detail/<int:id>")
+def detail_get(id) :
     conn = sqlite3.connect("avg36.db")
-    cur = conn.cursor()
-    cur.execute("SELECT name, img, portfolio, price_min, price_max, twitter, insta, facebook, mail, tel, free FROM members WHERE")
-    user_list = cur.fetchall()
-    i = user_list
-    cur.close()
-    return render_template("indiv_display.html", name=i[0], min = i[1], max = i[2], comment = i[3])
+    c = conn.cursor()
+    c.execute("select name, price_min, price_max, img, portfolio, twitter, \
+        insta, facebook, mail, tel, free from members where register_id=?", (id,))
 
-
-
-
-
-
-
+    info = c.fetchall()
+    
+    if info is not None :
+        info = info[0]
+        info_list = []
+        for i in info :
+            info_list.append(i)
+        c.execute("select filetype from uploads where title=?", (info_list[3],))
+        imgfile = c.fetchone()
+        c.execute("select filetype from uploads where title=?", (info_list[4],))
+        foliofile = c.fetchone()
+        info_list[3] = info_list[3] +  "." + imgfile[0]
+        info_list[4] = info_list[4] +  "." + foliofile[0]
+        c.close()
+    else :
+        return "データベースに存在しないメンバーです"
+    return render_template("indiv_display.html", info = info_list)
 
 
 # お問い合わせフォーム
@@ -282,43 +286,57 @@ def indiv_detail() :
 def contact() :
     return render_template("contact.html")
 
+"""
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'tomatomatonchan0314@gmail.com'
+app.config['MAIL_PASSWORD'] = 'rwxwepgzjuhfsypo'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
+
+@app.route("/send")
+def index() :
+    msg = Message('Hello', sender = 'tomatomatonchan0314@gmail.com', recipients = ['tomatomatonchan0314@gmail.com'])
+    msg.body = "Hello Flask message sent from Flask-Mail"
+    mail.send(msg)
+    return "Sent"
+
 
 @app.route("/send", methods = ["GET", "POST"])
-def contact_send() :
+def send() :
     name = request.form.get("name")
     company = request.form.get("company")
     tel = request.form.get("tel")
     mail = request.form.get("email")
     contents = request.form.get("contents")
 
-    smtp_server = 'smtp.gmail.com' #ホストを指定
-    smtp_port = 587
-    server = smtplib.SMTP(smtp_server, smtp_port)
-    server.starttls()
-    # smtp_account_id = "text" #ユーザー名を指定
-    # smtp_account_pass = 'password' #パスワードを入力
-    to_mail = "br18087@shibaura-it.ac.jp"
-    # login_address = mail
-    # server.login(login_address)
+    from_addrres = 'tomatomatonchan0314@gmail.com'
+    to_addrres = 'tomatomatonchan0314@gmail.com'
 
-    msg = MIMEMultipart('alternative')
-    msg['Subject'] = "お問い合わせ" #件名を入力
-    msg['From'] = mail
-    msg['To'] = "br18087@shibaura-it.ac.jp"
-    txt = "{}{}{}{}{}".format(name, company, tel, mail, contents)
-    text = MIMEText(txt)
-    msg.attach(text)
-    # part1 = MIMEText(text, 'plain')
+    # 発行したアプリパスワード
+    app_password = 'rwxwepgzjuhfsypo'
+    subject = 'お問い合わせ'
+    body = name
+    def create_message(from_addr, to_addr, subject, body):
+        msg = MIMEText(body)
+        msg['Subject'] = subject
+        msg['From'] = from_addr
+        msg['To'] = to_addr
+        return msg
 
-    server.send_message(msg)
-    server.quit()
-    return "お問い合わせを送信しました"
-
-
-
-
-
-
+    def send(from_addr, to_addr, msg):
+        smtpobj = smtplib.SMTP_SSL('smtp.gmail.com', 465, context=ssl.create_default_context())
+        smtpobj.starttls()
+        smtpobj.login(from_addr, app_password)
+        smtpobj.sendmail(from_addr, to_addr, msg.as_string())
+        smtpobj.close()
+    
+        message = create_message(from_addrres, to_addrres, subject, msg)
+        send(from_addr, to_addr, message)
+        return "sousinnkannryou"
+    return "!"
+"""
 
 # ログアウト機能
 @app.route("/logout", methods = ["GET"])

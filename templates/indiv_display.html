@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/style_pc.css">
+    
     <title>個人詳細ページ</title>
 </head>
 <body>
@@ -125,6 +126,7 @@
 
     .contact{
       font-size: 25px;
+      font-weight: bold;
     }
 
     .line{
@@ -139,37 +141,39 @@
 
 
   </style>
+        
     <div class="card">
       <div class="card-body">
-        <h2 class="card-name">{{name}}</h2>
-        <h3 class="card-price">￥{{min}}～￥{{max}}</h3>
+        <h2 class="card-name">{{info[0]}}</h2>
+        <h3 class="card-price">￥{{info[1]}}～￥{{info[2]}}</h3>
         <div class="prof-img">
-          <img src="./uploads/{{image_file}}" width="400" height="400">
+          <img src="../static/uploads/{{info[3]}}" width="400" height="400">
         </div>
         <div class="btn portfolio">
-          <a href="./uploads/{{portfolio_file}}" class="url_txt" rel="noopener">ポートフォリオ</a>
+          <a href="../static/uploads/{{info[4]}}" class="url_txt" rel="noopener">ポートフォリオ</a>
         </div>
         <div class="btn_round twitter">
-          <a href="{{t_url}}" class="url_txt">twitter</a>
+          <a href="{{info[5]}}" class="url_txt">twitter</a>
         </div>
         <div class="btn_round insta">
-          <a href="{{i_url}}" class="url_txt">instagram</a>
+          <a href="{{info[6]}}" class="url_txt">instagram</a>
         </div>
         <div class="btn_round facebook">
-          <a href="{{f_url}}" class="url_txt">facebook</a>
+          <a href="{{info[7]}}" class="url_txt">facebook</a>
         </div>
         <div class="contact">
-          <p class="mail">mail : {{mail}}</p>
-          <p class="text">TEL : {{tel}}</p>
+          <p class="mail">mail : {{info[8]}}</p>
+          <p class="text">TEL : {{info[9]}}</p>
         </div>
 
         <div class="line">
         </div>
         <div class="free">
-          <p class="card-text">{{free}}</p>
+          <p class="card-text">{{info[10]}}</p>
         </div>
         
       </div>
     </div>
+    
 </body>
 </html>
